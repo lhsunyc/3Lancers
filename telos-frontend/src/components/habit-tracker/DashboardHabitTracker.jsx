@@ -4,6 +4,7 @@ import {
   IconButton,
   Box,
   Button,
+  Dialog,
   TextField,
   InputLabel,
   MenuItem,
@@ -13,7 +14,7 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import WeekScheduleBar from './WeekScheduleBarHabitTracker';
-import './DashboardHabitTracker.css';
+import habitStyle from './DashboardHabitTracker.module.css';
 
 const DashboardHabitTracker = () => {
   const [habitTitle, setTitle] = useState('Habit1');
@@ -59,122 +60,139 @@ const DashboardHabitTracker = () => {
 
   return (
     <div>
-      <div className="container">
-        <div className="HabitTitle">
+      <div className={habitStyle.container}>
+        <div className={habitStyle.HabitTitle}>
           <h2>{habitTitle}</h2>
-          <span className="AddIcon">
+          <span className={habitStyle.AddIcon}>
             <IconButton onClick={() => setEditStatus(true)}>
               <AddIcon />
             </IconButton>
           </span>
         </div>
-        <div className="HabitContent">
+        <div className={habitStyle.HabitContent}>
           <p>{habitDes}</p>
         </div>
         <WeekScheduleBar />
       </div>
-      <Box className={`${isEdit === true ? 'menuContainer' : 'hidden'}`}>
-        <div className="menuHeader">
-          <Button
-            id="saveButton"
-            variant="contained"
-            onClick={() => {
-              saveChange();
-              setEditStatus(false);
-            }}
-          >
-            save
-          </Button>
-          <h2>New Habit</h2>
-          <Button
-            id="closeButton"
-            variant="contained"
-            onClick={() => {
-              setEditStatus(false);
-              setTempTitle(habitTitle);
-              setTempDes(habitDes);
-            }}
-          >
-            x
-          </Button>
-        </div>
-        <div className="menuBody">
-          <div className="habitInfo">
-            <div className="habitName">
-              <InputLabel id="name">Name:</InputLabel>
-              <TextField
-                id="standard-basic"
-                value={tempTitle}
-                onChange={handleChangeOnName}
-                fullWidth
-              />
-            </div>
-            <div className="habitDetail">
-              <InputLabel id="description">Description:</InputLabel>
-              <TextField
-                id="standard-basic"
-                value={tempDes}
-                onChange={handleChangeOnDes}
-                fullWidth
-              />
-            </div>
+      <Dialog
+        open={isEdit}
+        onClose={() => {
+          setEditStatus(false);
+        }}
+        classes={{
+          root: {
+            borderRadius: 16,
+          },
+        }}
+        aria-labelledby="form-dialog-title"
+      >
+        <Box className={`${isEdit === true ? habitStyle.menuContainer : habitStyle.hidden}`}>
+          <div className={habitStyle.menuHeader}>
+            <Button
+              id={habitStyle.saveButton}
+              variant="contained"
+              onClick={() => {
+                saveChange();
+                setEditStatus(false);
+              }}
+            >
+              save
+            </Button>
+            <h2>New Habit</h2>
+            <Button
+              id={habitStyle.closeButton}
+              variant="contained"
+              onClick={() => {
+                setEditStatus(false);
+                setTempTitle(habitTitle);
+                setTempDes(habitDes);
+              }}
+            >
+              ×
+            </Button>
           </div>
-          <div className="weekInfo">
-            <InputLabel id="repeatsOn">Repeats on</InputLabel>
-            <WeekScheduleBar />
-          </div>
-          <div className="timeSetting">
-            <div className="startDate">
-              <InputLabel id="start">Starts:</InputLabel>
-              <TextField
-                id="date"
-                type="date"
-                value={startDate}
-                onChange={handleChangeOnStartDate}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </div>
-            <div className="repeat">
-              <InputLabel id="selectWeeks">Repeats every</InputLabel>
-              <Select
-                labelId="selectWeeks"
-                id="demo-simple-select"
-                value={weeks}
-                onChange={handleChangeOnWeeks}
-              >
-                <MenuItem value={1}>1 week</MenuItem>
-                <MenuItem value={2}>2 weeks</MenuItem>
-                <MenuItem value={4}>4 weeks</MenuItem>
-                <MenuItem value={6}>6 weeks</MenuItem>
-              </Select>
-            </div>
-            <div className="endDate">
-              <InputLabel id="end">Ends:</InputLabel>
-              <RadioGroup
-                row
-                aria-label="endType"
-                name="endType"
-                value={endType}
-                onChange={handleChangeOnEndType}
-              >
-                <FormControlLabel value="Never" control={<Radio color="primary" />} label="Never" />
-                <FormControlLabel value="On" control={<Radio color="primary" />} label="On" />
+          <div className={habitStyle.menuBody}>
+            <div className={habitStyle.habitInfo}>
+              <div className={habitStyle.habitName}>
+                <InputLabel id={habitStyle.name}>Name:</InputLabel>
                 <TextField
-                  id="endDate"
+                  id="standard-basic"
+                  value={tempTitle}
+                  onChange={handleChangeOnName}
+                  fullWidth
+                />
+              </div>
+              <div className={habitStyle.habitDetail}>
+                <InputLabel id={habitStyle.description}>Description:</InputLabel>
+                <TextField
+                  id="standard-basic"
+                  value={tempDes}
+                  onChange={handleChangeOnDes}
+                  fullWidth
+                />
+              </div>
+            </div>
+            <div className={habitStyle.weekInfo}>
+              <InputLabel id={habitStyle.repeatsOn}>Repeats on</InputLabel>
+              <WeekScheduleBar />
+            </div>
+            <div className={habitStyle.timeSetting}>
+              <div className={habitStyle.startDate}>
+                <InputLabel id={habitStyle.start}>Starts:</InputLabel>
+                <TextField
+                  id="date"
                   type="date"
-                  value={endDate}
-                  onChange={handleChangeOnEndDate}
+                  value={startDate}
+                  onChange={handleChangeOnStartDate}
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
-              </RadioGroup>
+              </div>
+              <div className={habitStyle.repeat}>
+                <InputLabel id={habitStyle.selectWeeks}>Repeats every</InputLabel>
+                <Select
+                  labelId="selectWeeks"
+                  id="demo-simple-select"
+                  value={weeks}
+                  onChange={handleChangeOnWeeks}
+                >
+                  <MenuItem value={1}>1 week</MenuItem>
+                  <MenuItem value={2}>2 weeks</MenuItem>
+                  <MenuItem value={4}>4 weeks</MenuItem>
+                  <MenuItem value={6}>6 weeks</MenuItem>
+                </Select>
+              </div>
+              <div className={habitStyle.endDate}>
+                <InputLabel id={habitStyle.end}>Ends:</InputLabel>
+                <RadioGroup
+                  row
+                  aria-label="endType"
+                  name="endType"
+                  value={endType}
+                  onChange={handleChangeOnEndType}
+                >
+                  <FormControlLabel
+                    value="Never"
+                    control={<Radio color="primary" />}
+                    label="Never"
+                  />
+                  <FormControlLabel value="On" control={<Radio color="primary" />} label="On" />
+                  <TextField
+                    id="endDate"
+                    type="date"
+                    value={endDate}
+                    onChange={handleChangeOnEndDate}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </RadioGroup>
+              </div>
             </div>
           </div>
-        </div>
-      </Box>
+        </Box>
+      </Dialog>
     </div>
   );
 };

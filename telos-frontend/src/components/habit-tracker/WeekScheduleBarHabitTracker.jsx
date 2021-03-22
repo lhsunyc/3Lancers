@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import habitStyle from './JournalHabitTracker.module.css';
 
 const WeekScheduleBarHabitTracker = () => {
   const [monStatus, setMonStatus] = useState(false);
@@ -10,11 +11,11 @@ const WeekScheduleBarHabitTracker = () => {
   const [sunStatus, setSunStatus] = useState(false);
 
   return (
-    <div className="WeekSchedule">
+    <div className={habitStyle.WeekSchedule}>
       <ul>
         <li>
           <button
-            className={`${monStatus === true ? '' : 'unselect'}`}
+            className={`${monStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => {
               setMonStatus(!monStatus);
             }}
@@ -25,7 +26,7 @@ const WeekScheduleBarHabitTracker = () => {
         </li>
         <li>
           <button
-            className={`${tueStatus === true ? '' : 'unselect'}`}
+            className={`${tueStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => {
               setTueStatus(!tueStatus);
             }}
@@ -36,7 +37,7 @@ const WeekScheduleBarHabitTracker = () => {
         </li>
         <li>
           <button
-            className={`${wedStatus === true ? '' : 'unselect'}`}
+            className={`${wedStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => setWedStatus(!wedStatus)}
             type="button"
           >
@@ -45,7 +46,7 @@ const WeekScheduleBarHabitTracker = () => {
         </li>
         <li>
           <button
-            className={`${thuStatus === true ? '' : 'unselect'}`}
+            className={`${thuStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => setThuStatus(!thuStatus)}
             type="button"
           >
@@ -54,7 +55,7 @@ const WeekScheduleBarHabitTracker = () => {
         </li>
         <li>
           <button
-            className={`${friStatus === true ? '' : 'unselect'}`}
+            className={`${friStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => setFriStatus(!friStatus)}
             type="button"
           >
@@ -63,7 +64,7 @@ const WeekScheduleBarHabitTracker = () => {
         </li>
         <li>
           <button
-            className={`${satStatus === true ? '' : 'unselect'}`}
+            className={`${satStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => setSatStatus(!satStatus)}
             type="button"
           >
@@ -72,7 +73,7 @@ const WeekScheduleBarHabitTracker = () => {
         </li>
         <li>
           <button
-            className={`${sunStatus === true ? '' : 'unselect'}`}
+            className={`${sunStatus === true ? '' : habitStyle.unselect}`}
             onClick={() => setSunStatus(!sunStatus)}
             type="button"
           >
